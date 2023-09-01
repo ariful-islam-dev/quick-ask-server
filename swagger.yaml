@@ -1,0 +1,1095 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Quick Ask
+  description: This is the first professional api project we createing a full-stack army. this is a simple blog api application where anyone can create anew account, login to their system and create article that will be visible publicly.
+servers:
+  - url: http://localhost:4000/api/v1
+    description: Development
+tags:
+  - name: Auth
+    description: Authentication Endpoints(public)
+  - name: Question
+    description: Question Endpoints (public + private)
+  - name: Answers
+    description: Answers Endpoints (private)
+  - name: User
+    description: Users Endpoints(admin only)
+# security: []
+paths:
+  "/auth/signup":
+    post:
+      description: Create a new account
+      tags: [Auth]
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Abdullah Al Zarif"
+                email:
+                  type: string
+                  example: zarif@gmail.com
+                  format: email
+                password:
+                  type: string
+                  format: password;
+              required: [name, email, password]
+      responses:
+        201:
+          description: Signup Successful
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  message:
+                    type: string
+                    example: Singup Successful
+                  data:
+                    type: object
+                    properties:
+                      access-token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: "/auth/signup"
+                      signin:
+                        type: string
+                        example: "/auth/signup"
+        400:
+          $ref: "#/components/responses/auth_400"
+        500:
+          $ref: "#/components/responses/500"
+  "/auth/signin":
+    post:
+      description: Login in your account
+      tags: [Auth]
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: zarif@gmail.com
+                password:
+                  type: string
+                  format: password
+                  example: pass123
+      responses:
+        200:
+          description: Signin Successful
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Signin Successful
+                  data:
+                    type: object
+                    properties:
+                      access-token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: "/auth/signin"
+        400:
+          $ref: "#/components/responses/auth_400"
+        500:
+          $ref: "#/components/responses/500"
+  "/users":
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - User
+      description: Retrive All Users
+      parameters:
+        - $ref: "#/components/parameters/pageParams"
+        - $ref: "#/components/parameters/limitParams"
+        - $ref: "#/components/parameters/sortByParams"
+        - $ref: "#/components/parameters/sortTypeParams"
+        - in: query
+          name: search
+          description: Search By User Name
+          schema:
+            type: string
+            example: User Name
+      responses:
+        200:
+          description: Get All User
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Get All Users
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/UserDTO"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  link:
+                    type: object
+                    properties:
+                      self:
+                        type: object
+                        example: "/users"
+
+  "/questions":
+    get:
+      description: Retrive all published Questions
+      tags: [Question]
+      parameters:
+        - $ref: "#/components/parameters/pageParams"
+        - $ref: "#/components/parameters/limitParams"
+        - $ref: "#/components/parameters/sortTypeParams"
+        - $ref: "#/components/parameters/sortByParams"
+        - in: query
+          name: search
+          description: Search Term
+          schema:
+            type: string
+            example: Question Title
+
+      responses:
+        200:
+          description: Return All published Question
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/QuestionDTO"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /questions
+                      nextPage:
+                        type: string
+                        example: /question?page=3&limit=10
+                      prevPage:
+                        type: string
+                        example: /question?prev=1&limit=10
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#components/responses/500"
+    post:
+      operationId: createPost
+      security:
+        - bearerAuth: []
+      description: Post a new question
+      tags: [Question]
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Excel Sheet subtraction
+                description:
+                  type: string
+                  example: How can use excel subtraction method
+                image:
+                  type: string
+                  format: url
+                  example: ""
+                status:
+                  type: string
+                  enum: [public, private]
+                  default: public
+              required: [title, description]
+
+      responses:
+        201:
+          description: Successfully create a new post
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    example: 201
+                  message:
+                    type: string
+                    example: Successfully post a new question.
+                  data:
+                    $ref: "#/components/schemas/QuestionDTO"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /questions/12345abcle
+                      author:
+                        type: string
+                        example: /questions/12345abcle/author
+                      answers:
+                        type: string
+                        example: /questions/12345abcle/answers
+        400:
+          description: Bad Request
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 400
+                  message:
+                    type: string
+                    example: Bad Request
+                  error:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: string
+                          example: title is require
+                        field:
+                          type: string
+                          example: title
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  "/questions/{id}":
+    get:
+      tags:
+        - Question
+      description: Retrive a Single Question
+      parameters:
+        - $ref: "#components/parameters/idParams"
+        - in: query
+          name: expand
+          description: expand Author or query
+          schema:
+            type: string
+            example: author, answers
+      responses:
+        200:
+          description: Only One Question View
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Retrive a single user data Successfully
+                  data:
+                    allOf:
+                      - $ref: "#/components/schemas/QuestionDTO"
+                      - type: object
+                        properties:
+                          author:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: abc12394
+                              name:
+                                type: string
+                                example: Abdullah Al Zarif
+                      - type: object
+                        properties:
+                          answers:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                  example: abc12394
+                                body:
+                                  type: string
+                                  example: =SUM(START_CELL:END_CELL)
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: "/questions/abc12394"
+                      author:
+                        type: string
+                        example: "/questions/abc12394/author"
+                      answers:
+                        type: string
+                        example: "/questions/abc12394/answers"
+        404:
+          $ref: "#/components/responses/404"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
+    put:
+      security:
+        - bearerAuth: []
+      description: Update a single user all information
+      tags: [Question]
+      parameters:
+        - $ref: "#/components/parameters/idParams"
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "1234567abc"
+                title:
+                  type: string
+                  example: For Loop Conditional Problem
+                description:
+                  type: string
+                  example: Condition is not running right way.
+                image:
+                  type: string
+                  format: url
+                  example: "https://i.ibb.co/ZHdndgK/e-school.png"
+                status:
+                  type: string
+                  enum: [public, private]
+                  default: public
+              required: [id, title, description, image, status]
+      responses:
+        200:
+          description: All Data updated Successfully
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Updated Successfully
+                  data:
+                    $ref: "#/components/schemas/QuestionDTO"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /questions/12345abcle
+                      author:
+                        type: string
+                        example: /questions/12345abcle/author
+                      answers:
+                        type: string
+                        example: /questions/12345abcle/answers
+        201:
+          description: Post a new question
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Updated Successfully
+                  data:
+                    $ref: "#/components/schemas/QuestionDTO"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /questions/12345abcle
+                      author:
+                        type: string
+                        example: /questions/12345abcle/author
+                      answers:
+                        type: string
+                        example: /questions/12345abcle/answers
+        400:
+          $ref: "#/components/responses/400"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    patch:
+      security:
+        - bearerAuth: []
+      tags: [Question]
+      description: Update a Single Property of a Question
+      parameters:
+        - $ref: "#/components/parameters/idParams"
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: "1234567abc"
+                title:
+                  type: string
+                  example: "Pointer Address Error"
+                description:
+                  type: string
+                  example: "My Code is right but Address is not show"
+                status:
+                  type: string
+                  enum: [public, private]
+                  default: public
+                image:
+                  type: string
+                  format: url
+                  example: "https://i.ibb.co/ZHdndgK/e-school.png"
+              required: [id, title, description]
+      responses:
+        200:
+          description: Update your question Successfully
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Update Your question Successfully
+                  data:
+                    $ref: "#/components/schemas/QuestionDTO"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /questions/12345abcle
+                      author:
+                        type: string
+                        example: /questions/12345abcle/author
+                      answers:
+                        type: string
+                        example: /questions/12345abcle/answers
+        400:
+          $ref: "#/components/responses/400"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      security:
+        - bearerAuth: []
+      tags: [Question]
+      description: Delete This Question
+      responses:
+        204:
+          description: Delete Your Question
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 204
+                  message:
+                    type: string
+                    example: Deleted Successfully
+        401:
+          $ref: "#/components/responses/401"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  "/questions/{id}/answers":
+    get:
+      description: Retrive all answers repleted of question
+      tags: [Question]
+      parameters:
+        - $ref: "#/components/parameters/pageParams"
+        - $ref: "#/components/parameters/limitParams"
+      responses:
+        200:
+          description: Selected all Post Answer
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Get Post all answer
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AnswerDTO"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /questions/12345abcle/answers
+                      question:
+                        type: string
+                        example: /questions/12345abcle
+                      author:
+                        type: string
+                        example: /questions/12345abcle/answers/ans123/auth
+                      nextPage:
+                        type: string
+                        example: /questions/12345abcle/answers?page=3&limit=10
+                      prevPage:
+                        type: string
+                        example: /questions/12345abcle/answers?page=1&limit=10
+                  page:
+                    $ref: "#/components/schemas/Pagination"
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  "/questions/{id}/author":
+    get:
+      tags: [Question]
+      description: GET Author By question
+      responses:
+        200:
+          description: Get question's author
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Your Question's Author
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: "1234567abc"
+                      name:
+                        type: string
+                        example: Abrullah Al Zarif
+                      email:
+                        type: string
+                        format: email
+                        example: zarif@gmail.com
+                      role:
+                        type: string
+                        enum: [admin, user]
+                        default: user
+                      avatar:
+                        type: string
+                        format: url
+                        example: "https://i.ibb.co/ZHdndgK/e-school.png"
+                      link:
+                        type: string
+                        example: author/auth123
+        404:
+          $ref: "#/components/responses/404"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+
+  "/answers":
+    get:
+      security:
+        - bearerAuth: []
+      tags: [Answers]
+      description: Retrive all Answer
+      parameters:
+        - $ref: "#/components/parameters/pageParams"
+        - $ref: "#/components/parameters/limitParams"
+        - $ref: "#/components/parameters/sortTypeParams"
+        - $ref: "#/components/parameters/sortByParams"
+        - in: path
+          name: QuestionId
+          description: Question id
+          schema:
+            type: string
+            example: "1234567abc"
+      responses:
+        200:
+          description: Retrive all Answer
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Your all answer
+                  data:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/AnswerDTO"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+                  links:
+                    type: object
+                    properties:
+                      self:
+                        type: string
+                        example: /answers
+                      nextPage:
+                        type: string
+                        example: /answers?page=3&limit=10
+                      prevPage:
+                        type: string
+                        example: /answers?prev=1&limit=10
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      security:
+        - bearerAuth: []
+      tags: [Answers]
+      description: Answer to the Question
+      parameters:
+        - $ref: "#components/parameters/idParams"
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: Install NodeJS Stable version
+                status:
+                  type: string
+                  enum: [draft, approved]
+              required:
+                - body
+      responses:
+        201:
+          description: Answer this question
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  message:
+                    type: string
+                    example: Post a new answer
+                  data:
+                    $ref: "#/components/schemas/AnswerDTO"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  "/answers/{id}":
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - Answers
+      description: Update the answer
+      parameters:
+        - $ref: "#/components/parameters/idParams"
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: Using NodeJS File system
+                status:
+                  type: string
+                  enum: [draft, approved]
+                  default: draft
+      responses:
+        200:
+          description: Updated the answer
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Updated the answer Successfully
+                  data:
+                    $ref: "#/components/schemas/AnswerDTO"
+        404:
+          $ref: "#/components/responses/404"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    delete:
+      security:
+        - bearerAuth: []
+      tags: [Answers]
+      description: Delete this answer
+      parameters:
+        - $ref: "#/components/parameters/idParams"
+      responses:
+        204:
+          description: Deleted Your Answer Successfully
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 204
+                  message:
+                    type: string
+                    example: Deleted Successfully
+        404:
+          $ref: "#/components/responses/404"
+        400:
+          $ref: "#/components/responses/400"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  responses:
+    "auth_400":
+      description: Bad Request
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                example: 400
+              message:
+                type: string
+                example: Bad Request
+              error:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: Invalid Password
+                    field:
+                      type: string
+                      example: password
+                    in:
+                      type: string
+                      example: body
+    # Server Error Message
+    "500":
+      description: Internal Server error
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                example: 500
+              error:
+                type: string
+                example: Internal Server Error
+              message:
+                type: string
+                example: We are sorry for the inconvenience. Please Try again later
+    "400":
+      description: Bad Request
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                example: 400
+              message:
+                type: string
+                example: Bad Request
+    "401":
+      description: Unauthorize
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                example: 401
+              message:
+                type: string
+                example: Your are not permitted this operation
+    "404":
+      description: Resources Not Found
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                example: 404
+              message:
+                type: string
+                example: Resources not Found
+  parameters:
+    pageParams:
+      in: query
+      name: page
+      description: Current page number
+      schema:
+        type: integer
+        format: int32
+        example: 1
+    limitParams:
+      in: query
+      name: limit
+      description: the number of object should be return
+      schema:
+        type: integer
+        format: int32
+        example: 10
+    idParams:
+      in: path
+      name: id
+      required: true
+      description: Question id
+      schema:
+        type: string
+        example: "1234567abc"
+    sortTypeParams:
+      in: query
+      name: sortType
+      description: Type of sort (asc or dsc)
+      schema:
+        type: string
+        enum: [asc, dsc]
+        example: dsc
+    sortByParams:
+      in: query
+      name: sortBy
+      description: Sort Key (updateAt or title)
+      schema:
+        type: string
+        example: updatedAt
+
+  schemas:
+    Timestamp:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          example: "2023-08-25T06:45:12.159Z"
+        updatedAt:
+          type: string
+          example: "2023-08-25T06:46:08.634Z"
+    AuthorDTO:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1234567abc"
+        name:
+          type: string
+          example: Abdullah Al Zarif
+      required:
+        - id
+        - name
+    QuestionDTO:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: abc12394
+            title:
+              type: string
+              example: sum of array element
+            description:
+              type: string
+              example: I can't sum of my all array elements
+            image:
+              type: string
+              format: url
+              example: https://i.ibb.co/ZHdndgK/e-school.png
+            link:
+              type: string
+              example: "/questions/abc12394"
+        - $ref: "#components/schemas/Timestamp"
+        - required: [id, title, description, author]
+    AnswerDTO:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: ans123
+            body:
+              type: string
+              example: Excel Sum function is SUM(START_CELL:END_CELL)
+            author:
+              type: string
+              example: "auth1234"
+            question:
+              type: string
+              example: "1234567abc"
+            statue:
+              type: string
+              enum: [draft, approved]
+              default: draft
+            link:
+              type: string
+              example: /answers/ans123
+        - $ref: "#/components/schemas/Timestamp"
+    UserDTO:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: string
+              example: user12344
+            name:
+              type: string
+              example: Abdullah Al Zarif
+            email:
+              type: string
+              format: email
+              example: zarif@gmail.com
+            avatar:
+              type: string
+              format: url
+              example: ""
+            role:
+              type: string
+              enum: [admin, user]
+              default: user
+            link:
+              type: string
+              example: users/user123
+        - $ref: "#/components/schemas/Timestamp"
+    Pagination:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          example: 2
+        limit:
+          type: integer
+          format: int32
+          example: 10
+        next:
+          type: integer
+          format: int32
+          example: 3
+        prev:
+          type: integer
+          format: int32
+          example: 1
+        totalItems:
+          type: integer
+          format: int32
+          example: 25
+        totalPage:
+          type: integer
+          format: int32
+          example: 3
+      required: [page, limit, totalItems, totalPage]
