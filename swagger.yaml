@@ -164,8 +164,197 @@ paths:
                     type: object
                     properties:
                       self:
-                        type: object
+                        type: string
                         example: "/users"
+                      nextPage:
+                        type: string
+                        example: "/users?page=1&limit=10"
+                      prevPage:
+                        type: string
+                        example: "/users?page=3&limit=10"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+    post:
+      security:
+        - bearerAuth: []
+      tags: [User]
+      description: Create a user Account
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Aysha Mone
+                email:
+                  type: string
+                  format: email
+                  example: mony@gmail.com
+                password:
+                  type: string
+                  format: password
+                  example: pass1234
+                avatar:
+                  type: string
+                  format: url
+                  example: ""
+                role:
+                  type: string
+                  enum:
+                    - user
+                      admin
+                  default: user
+                status:
+                  type: string
+                  enum:
+                    - public
+                    - private
+                  default: public
+              required: [name, email, password]
+      responses:
+        201:
+          description: Create a new user
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  message:
+                    type: string
+                    example: Create a user Successful
+                  data:
+                    $ref: "#/components/schemas/UserDTO"
+        400:
+          $ref: "#/components/responses/400_field"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+  "/users/{id}":
+    patch:
+      security:
+        - bearerAuth: []
+      tags:
+        - User
+      description: Update a user document
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Assaludllah Al Labib
+                email:
+                  type: string
+                  example: labib@gmail.com
+                  format: email
+                role:
+                  type: string
+                  enum:
+                    - admin
+                    - user
+                  default: user
+                status:
+                  type: string
+                  enum: [public, private]
+                  default: public
+                avatar:
+                  type: string
+                  format: url
+                  example: ""
+      responses:
+        200:
+          description: Update a user document Successfully
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Update a user Successfully
+                  data:
+                    $ref: "#/components/schemas/UserDTO"
+        404:
+          $ref: "#/components/responses/404"
+        400:
+          $ref: "#/components/responses/400_field"
+        500:
+          $ref: "#components/responses/500"
+    delete:
+      security:
+        - bearerAuth: []
+      tags: [User]
+      description: Delete a user
+      responses:
+        204:
+          description: User Delete Successfully
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 204
+                  message:
+                    type: string
+                    example: User Deleted Successfully
+        404:
+          $ref: "#/components/responses/404"
+        500:
+          $ref: "#/components/responses/500"
+  "users/{id}/password":
+    patch:
+      security:
+        - bearerAuth: []
+      tags: [User]
+      description: Change User Password
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  email: 123abce
+      responses:
+        200:
+          description: Change User password
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Password change Successfully
+        404:
+          $ref: "#/components/responses/404"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
 
   "/questions":
     get:
@@ -902,6 +1091,31 @@ components:
               message:
                 type: string
                 example: Bad Request
+    "400_field":
+      description: Bad Request
+      content:
+        "application/json":
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+                example: 400
+              message:
+                type: string
+                example: Bad Request
+              error:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    message:
+                      type: string
+                      example: name is require
+                    filed:
+                      type: string
+                      example: name
     "401":
       description: Unauthorize
       content:
@@ -1061,10 +1275,20 @@ components:
               type: string
               enum: [admin, user]
               default: user
+            status:
+              type: string
+              enum:
+                - public
+                  private
+              default: public
             link:
               type: string
               example: users/user123
         - $ref: "#/components/schemas/Timestamp"
+        - required:
+            - name
+            - email
+            - id
     Pagination:
       type: object
       properties:
