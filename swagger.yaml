@@ -17,7 +17,7 @@ tags:
     description: Users Endpoints(admin only)
 # security: []
 paths:
-  "/auth/signup":
+  "/auth/register":
     post:
       description: Create a new account
       tags: [Auth]
@@ -72,7 +72,7 @@ paths:
           $ref: "#/components/responses/auth_400"
         500:
           $ref: "#/components/responses/500"
-  "/auth/signin":
+  "/auth/login":
     post:
       description: Login in your account
       tags: [Auth]
