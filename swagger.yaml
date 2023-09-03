@@ -319,7 +319,7 @@ paths:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
-  "users/{id}/password":
+  "/users/{id}/password":
     patch:
       security:
         - bearerAuth: []
@@ -620,6 +620,7 @@ paths:
                       answers:
                         type: string
                         example: /questions/12345abcle/answers
+
         201:
           description: Post a new question
           content:
@@ -649,7 +650,7 @@ paths:
                         type: string
                         example: /questions/12345abcle/answers
         400:
-          $ref: "#/components/responses/400"
+          $ref: "#/components/responses/400_field"
         404:
           $ref: "#/components/responses/404"
         500:
@@ -941,7 +942,7 @@ paths:
                   data:
                     $ref: "#/components/schemas/AnswerDTO"
         400:
-          $ref: "#/components/responses/400"
+          $ref: "#/components/responses/400_field"
         401:
           $ref: "#/components/responses/401"
         500:
