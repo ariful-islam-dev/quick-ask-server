@@ -15,7 +15,7 @@ tags:
     description: Answers Endpoints (private)
   - name: User
     description: Users Endpoints(admin only)
-# security: []
+
 paths:
   "/auth/register":
     post:
@@ -33,14 +33,13 @@ paths:
                 email:
                   type: string
                   example: zarif@gmail.com
-                  format: email
                 password:
                   type: string
-                  format: password;
+                  example: pass1234;
               required: [name, email, password]
       responses:
         201:
-          description: Signup Successful
+          description: Register Successful
           content:
             "application/json":
               schema:
@@ -64,10 +63,10 @@ paths:
                     properties:
                       self:
                         type: string
-                        example: "/auth/signup"
-                      signin:
+                        example: "/auth/register"
+                      login:
                         type: string
-                        example: "/auth/signup"
+                        example: "/auth/login"
         400:
           $ref: "#/components/responses/auth_400"
         500:
@@ -84,15 +83,17 @@ paths:
               properties:
                 email:
                   type: string
-                  format: email
                   example: zarif@gmail.com
                 password:
                   type: string
                   format: password
                   example: pass123
+              required:
+                - email
+                - password
       responses:
         200:
-          description: Signin Successful
+          description: Login Successful
           content:
             "application/json":
               schema:
@@ -104,7 +105,7 @@ paths:
                     example: 200
                   message:
                     type: string
-                    example: Signin Successful
+                    example: login Successful
                   data:
                     type: object
                     properties:
@@ -116,7 +117,7 @@ paths:
                     properties:
                       self:
                         type: string
-                        example: "/auth/signin"
+                        example: "/auth/login"
         400:
           $ref: "#/components/responses/auth_400"
         500:
@@ -133,12 +134,7 @@ paths:
         - $ref: "#/components/parameters/limitParams"
         - $ref: "#/components/parameters/sortByParams"
         - $ref: "#/components/parameters/sortTypeParams"
-        - in: query
-          name: search
-          description: Search By User Name
-          schema:
-            type: string
-            example: User Name
+        - $ref: "#/components/parameters/searchParams"
       responses:
         200:
           description: Get All User
@@ -192,7 +188,6 @@ paths:
                   example: Aysha Mone
                 email:
                   type: string
-                  format: email
                   example: mony@gmail.com
                 password:
                   type: string
@@ -207,13 +202,13 @@ paths:
                   enum:
                     - user
                       admin
-                  default: user
+                  example: user
                 status:
                   type: string
                   enum:
                     - public
                     - private
-                  default: public
+                  example: public
               required: [name, email, password]
       responses:
         201:
@@ -257,17 +252,16 @@ paths:
                 email:
                   type: string
                   example: labib@gmail.com
-                  format: email
                 role:
                   type: string
                   enum:
                     - admin
                     - user
-                  default: user
+                  example: user
                 status:
                   type: string
                   enum: [public, private]
-                  default: public
+                  example: public
                 avatar:
                   type: string
                   format: url
@@ -294,7 +288,7 @@ paths:
         400:
           $ref: "#/components/responses/400_field"
         500:
-          $ref: "#components/responses/500"
+          $ref: "#/components/responses/500"
     delete:
       security:
         - bearerAuth: []
@@ -333,7 +327,7 @@ paths:
               properties:
                 password:
                   type: string
-                  email: 123abce
+                  example: 123abce
       responses:
         200:
           description: Change User password
@@ -401,7 +395,7 @@ paths:
         400:
           $ref: "#/components/responses/400"
         500:
-          $ref: "#components/responses/500"
+          $ref: "#/components/responses/500"
     post:
       operationId: createPost
       security:
@@ -427,7 +421,7 @@ paths:
                 status:
                   type: string
                   enum: [public, private]
-                  default: public
+                  example: public
               required: [title, description]
 
       responses:
@@ -493,7 +487,7 @@ paths:
         - Question
       description: Retrive a Single Question
       parameters:
-        - $ref: "#components/parameters/idParams"
+        - $ref: "#/components/parameters/idParams"
         - in: query
           name: expand
           description: expand Author or query
@@ -573,9 +567,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                  example: "1234567abc"
                 title:
                   type: string
                   example: For Loop Conditional Problem
@@ -588,9 +579,11 @@ paths:
                   example: "https://i.ibb.co/ZHdndgK/e-school.png"
                 status:
                   type: string
-                  enum: [public, private]
-                  default: public
-              required: [id, title, description, image, status]
+                  enum:
+                    - public
+                      private
+                  example: public
+              required: [title, description]
       responses:
         200:
           description: All Data updated Successfully
@@ -668,9 +661,6 @@ paths:
             schema:
               type: object
               properties:
-                id:
-                  type: string
-                  example: "1234567abc"
                 title:
                   type: string
                   example: "Pointer Address Error"
@@ -680,12 +670,12 @@ paths:
                 status:
                   type: string
                   enum: [public, private]
-                  default: public
+                  example: public
                 image:
                   type: string
                   format: url
                   example: "https://i.ibb.co/ZHdndgK/e-school.png"
-              required: [id, title, description]
+              required: [title, description]
       responses:
         200:
           description: Update your question Successfully
@@ -827,12 +817,11 @@ paths:
                         example: Abrullah Al Zarif
                       email:
                         type: string
-                        format: email
                         example: zarif@gmail.com
                       role:
                         type: string
                         enum: [admin, user]
-                        default: user
+                        example: user
                       avatar:
                         type: string
                         format: url
@@ -858,7 +847,7 @@ paths:
         - $ref: "#/components/parameters/limitParams"
         - $ref: "#/components/parameters/sortTypeParams"
         - $ref: "#/components/parameters/sortByParams"
-        - in: path
+          in: path
           name: QuestionId
           description: Question id
           schema:
@@ -909,7 +898,7 @@ paths:
       tags: [Answers]
       description: Answer to the Question
       parameters:
-        - $ref: "#components/parameters/idParams"
+        - $ref: "#/components/parameters/idParams"
       requestBody:
         content:
           "application/json":
@@ -921,9 +910,11 @@ paths:
                   example: Install NodeJS Stable version
                 status:
                   type: string
-                  enum: [draft, approved]
-              required:
-                - body
+                  enum:
+                    - draft
+                    - approved
+                  example: draft
+              required: [body]
       responses:
         201:
           description: Answer this question
@@ -947,6 +938,7 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
+
   "/answers/{id}":
     patch:
       security:
@@ -967,8 +959,10 @@ paths:
                   example: Using NodeJS File system
                 status:
                   type: string
-                  enum: [draft, approved]
-                  default: draft
+                  enum:
+                    - draft
+                      approved
+                  example: draft
       responses:
         200:
           description: Updated the answer
@@ -1166,25 +1160,34 @@ components:
       in: path
       name: id
       required: true
-      description: Question id
+      description: Question Id
       schema:
         type: string
         example: "1234567abc"
     sortTypeParams:
       in: query
-      name: sortType
+      name: sort_type
       description: Type of sort (asc or dsc)
       schema:
         type: string
-        enum: [asc, dsc]
+        enum:
+          - asc
+          - dsc
         example: dsc
     sortByParams:
       in: query
-      name: sortBy
+      name: sort_by
       description: Sort Key (updateAt or title)
       schema:
         type: string
         example: updatedAt
+    searchParams:
+      in: query
+      name: search
+      description: Search By User Name
+      schema:
+        type: string
+        example: User Name
 
   schemas:
     Timestamp:
@@ -1228,8 +1231,8 @@ components:
             link:
               type: string
               example: "/questions/abc12394"
-        - $ref: "#components/schemas/Timestamp"
-        - required: [id, title, description, author]
+          required: [id, title, description]
+        - $ref: "#/components/schemas/Timestamp"
     AnswerDTO:
       allOf:
         - type: object
@@ -1248,8 +1251,8 @@ components:
               example: "1234567abc"
             statue:
               type: string
-              enum: [draft, approved]
-              default: draft
+              enum: ["draft", "approved"]
+              example: draft
             link:
               type: string
               example: /answers/ans123
@@ -1266,7 +1269,6 @@ components:
               example: Abdullah Al Zarif
             email:
               type: string
-              format: email
               example: zarif@gmail.com
             avatar:
               type: string
@@ -1275,13 +1277,13 @@ components:
             role:
               type: string
               enum: [admin, user]
-              default: user
+              example: user
             status:
               type: string
               enum:
                 - public
                   private
-              default: public
+              example: public
             link:
               type: string
               example: users/user123
