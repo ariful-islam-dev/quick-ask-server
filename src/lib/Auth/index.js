@@ -1,7 +1,5 @@
-import login from "./Controllers/login.js";
-import register from "./Controllers/register.js";
+import login from "./login.js";
+import register from "./register.js";
+const authService = {register,login};
 
-const authController = { login, register };
-
-
-export default authController;
+export default authService;

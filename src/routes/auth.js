@@ -1,4 +1,4 @@
-import authController from "../lib/Auth/index.js";
+import authController from "../api/v1/Auth/index.js";
 const authRoute = (router) => {
   // Register User
   router.route("/auth/register").post(authController.register);
