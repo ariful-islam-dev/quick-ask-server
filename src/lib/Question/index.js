@@ -1,5 +1,6 @@
 import count from "./count.js";
 import createQuestion from "./createQuestion.js";
+import deleteQuestion from "./deleteQuestion.js";
 import findAllQuestion from "./findAllQuestion.js";
 import findSingleQuestion from "./findSingleQuestion.js";
 import patchUpdateQuestion from "./patchUpdateQuestion.js";
@@ -12,7 +13,8 @@ const questionService ={
     createQuestion,
     findSingleQuestion, 
     putUpdateQuestion,
-    patchUpdateQuestion
+    patchUpdateQuestion,
+    deleteQuestion
 }
 
 export default questionService;
