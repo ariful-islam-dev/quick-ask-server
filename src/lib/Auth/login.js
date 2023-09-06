@@ -1,11 +1,13 @@
-import { genJWTToken } from "../../api/v1/Auth/utils.js";
+
 import { badRequest } from "../../utils/error.js";
 import { matchHashing } from "../../utils/hashing.js";
 import findUserByEmail from "../User/findUserByEmail.js";
+import token from "../token/index.js";
 
 const login = async(email, password)=>{
      //find user
      const user = await findUserByEmail(email);
+     
      if(!user){
        throw badRequest("Invalid Credential")
      }
@@ -22,7 +24,7 @@ const login = async(email, password)=>{
        role: user.role,
        status: user.status
      }
-     return genJWTToken(payload)
+     return token.genJWTToken(payload)
 }
 
 export default login

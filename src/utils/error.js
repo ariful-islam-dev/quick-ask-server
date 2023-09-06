@@ -15,5 +15,17 @@ const badRequest = (msg ="Bad Request")=>{
     return error
 }
 
-export { badRequest, notFound, serverError };
+const authenticationError = (msg="Authentication Failed!")=>{
+    const error = new Error(msg);
+    error.status = 401;
+    return error
+};
+
+const authorizationError = (msg="Permission Denied!")=>{
+    const error = new Error(msg);
+    error.status = 403;
+    return error;
+}
+
+export { authenticationError, authorizationError, badRequest, notFound, serverError };
 

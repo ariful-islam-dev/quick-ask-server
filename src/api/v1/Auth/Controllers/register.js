@@ -1,5 +1,7 @@
 import authService from "../../../../lib/Auth/index.js";
-import { genJWTToken } from "../utils.js";
+import token from "../../../../lib/token/index.js";
+
+
 
 const register = async (req, res, next) => {
   const { name, email, password } = req.body;
@@ -14,7 +16,7 @@ const register = async (req, res, next) => {
       role: user.role,
       status: user.status,
     };
-    const access_Token = await genJWTToken(payload);
+    const access_Token = await token.genJWTToken(payload);
 
     const response = {
       code: 201,
