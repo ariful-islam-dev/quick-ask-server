@@ -38,13 +38,16 @@ const findAllQuestion = async (req, res, next) => {
     const pagination = query.getPagination(totalItems, page, limit);
 
     // links
-
-    res.status(200).json({
+    const links = query.getHateOSQuestions(req.url, !!pagination.next, !!pagination.prev, page, req.path, req.query);
+    // response
+    const response = {
       code: 200,
       message: "Get All Question",
       data,
       pagination,
-    });
+      links
+    }
+    res.status(200).json(response);
   } catch (error) {
     next(error);
   }

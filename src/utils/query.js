@@ -1,4 +1,5 @@
 import defaultConfig from "../config/default.js";
+import generateQueryStr from "./qs.js";
 
 // added data link
 const getTransformItems = (items = [], selection = [], path = "/") => {
@@ -44,5 +45,23 @@ const getPagination = (
   return pagination;
 };
 
-export { getPagination, getTransformItems };
+const getHateOSQuestions=(url="/", hasNext=false, hasPrev=false,page=1, path="", query={})=>{
+  const links = {
+    self: url
+  }
+
+  if(hasNext){
+    const queryStr = generateQueryStr({...query, page: page+1});
+    links.next = `${path}?${queryStr}`;
+  }
+
+  if(hasPrev){
+    const queryStr = generateQueryStr({...query, page: page-1});
+    links.prev = `${path}?${queryStr}`;
+  };
+
+  return links
+}
+
+export { getHateOSQuestions, getPagination, getTransformItems };
 

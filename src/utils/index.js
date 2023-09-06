@@ -1,11 +1,12 @@
 import generateQueryStr from "./qs.js";
-import { getPagination, getTransformItems } from "./query.js";
+import { getHateOSQuestions, getPagination, getTransformItems } from "./query.js";
 
 const qs = {generateQueryStr}
 
 const query = {
     getTransformItems,
-    getPagination
+    getPagination,
+    getHateOSQuestions
 }
 
 export { qs, query };
