@@ -574,14 +574,13 @@ paths:
                   example: Condition is not running right way.
                 image:
                   type: string
-                  format: url
-                  example: "https://i.ibb.co/ZHdndgK/e-school.png"
+                  example: ""
                 status:
                   type: string
                   enum:
                     - public
-                      private
-                  example: public
+                    - private
+                  default: public
               required: [title, description]
       responses:
         200:
@@ -672,9 +671,7 @@ paths:
                   example: public
                 image:
                   type: string
-                  format: url
                   example: "https://i.ibb.co/ZHdndgK/e-school.png"
-              required: [title, description]
       responses:
         200:
           description: Update your question Successfully
@@ -715,6 +712,8 @@ paths:
         - bearerAuth: []
       tags: [Question]
       description: Delete This Question
+      parameters:
+        - $ref: "#/components/parameters/idParams"
       responses:
         204:
           description: Delete Your Question

@@ -21,10 +21,6 @@ const questionSchema = new Schema({
         type: String,
         enum: ["public", "private"],
         default: "public"
-    }, 
-    answers: {
-        type: [Schema.Types.ObjectId],
-        ref: "Answer"
     }
 
 }, {timestamps: true, authIndex: false});

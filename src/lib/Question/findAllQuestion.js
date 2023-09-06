@@ -7,7 +7,7 @@ const findAllQuestion = async (page, limit, sortBy, sortType, search) => {
     title: { $regex: search, $options: "i" },
   };
 
-  const questions = await Question.find(filter)
+  const questions = await Question.find(filter).select(["-__v", "-answers"])
     .populate()
     .sort(sortStr)
     .skip(page * limit - limit)
