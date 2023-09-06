@@ -785,6 +785,53 @@ paths:
           $ref: "#/components/responses/404"
         500:
           $ref: "#/components/responses/500"
+    post:
+      security:
+        - bearerAuth: []
+      description: Answer a Question
+      tags: [Question]
+      parameters:
+        - $ref: "#/components/parameters/idParams"
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                body:
+                  type: string
+                  example: Install NodeJS Stable version
+                status:
+                  type: string
+                  enum:
+                    - draft
+                    - approved
+                  example: draft
+              required: [body]
+      responses:
+        201:
+          description: Answer this question
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 201
+                  message:
+                    type: string
+                    example: Post a new answer
+                  data:
+                    $ref: "#/components/schemas/AnswerDTO"
+        400:
+          $ref: "#/components/responses/400_field"
+        401:
+          $ref: "#/components/responses/401"
+        500:
+          $ref: "#/components/responses/500"
+
   "/questions/{id}/author":
     get:
       tags: [Question]
