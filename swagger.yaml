@@ -740,8 +740,11 @@ paths:
       description: Retrive all answers repleted of question
       tags: [Question]
       parameters:
+        - $ref: "#/components/parameters/idParams"
         - $ref: "#/components/parameters/pageParams"
         - $ref: "#/components/parameters/limitParams"
+        - $ref: "#/components/parameters/sortTypeParams"
+        - $ref: "#/components/parameters/sortByParams"
       responses:
         200:
           description: Selected all Post Answer
@@ -836,6 +839,8 @@ paths:
     get:
       tags: [Question]
       description: GET Author By question
+      parameters:
+        - $ref: "#/components/parameters/idParams"
       responses:
         200:
           description: Get question's author
@@ -880,6 +885,35 @@ paths:
           $ref: "#/components/responses/401"
         500:
           $ref: "#/components/responses/500"
+
+  "/questions/upload":
+    post:
+      description: Update a file;
+      tags:
+        - Question
+
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: "Excel Summation Problem"
+                description:
+                  type: string
+                  example: "I have no idea in js"
+                image:
+                  type: string
+                  format: binary
+              required:
+                - title
+                - description
+
+      responses:
+        200:
+          description: File updated successfully
 
   "/answers":
     get:
