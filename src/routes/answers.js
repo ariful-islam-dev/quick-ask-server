@@ -22,7 +22,22 @@ const answerRouter = (router) => {
       authorization(["user", "admin"]),
       answerControllers.findSingleAnswer
     )
-    .patch(authentication, authorization(["admin"]), answerControllers.updateAnswer);
+    .patch(
+      authentication,
+      authorization(["user", "admin"]),
+      answerControllers.updateAnswer
+    )
+    .delete(
+      authentication,
+      authorization(["user", "admin"]),
+      async (req, res, next) => {
+        res.status(204).json({
+          code: 204,
+          message: "Deleted Successfully",
+        });
+      }
+    );
+
   return router;
 };
 

@@ -9,12 +9,12 @@ servers:
 tags:
   - name: Auth
     description: Authentication Endpoints(public)
+  - name: User
+    description: Users Endpoints(admin only)
   - name: Question
     description: Question Endpoints (public + private)
   - name: Answers
     description: Answers Endpoints (private)
-  - name: User
-    description: Users Endpoints(admin only)
 
 paths:
   "/auth/register":
@@ -234,12 +234,71 @@ paths:
         500:
           $ref: "#/components/responses/500"
   "/users/{id}":
+    get:
+      security:
+        - bearerAuth: []
+      tags:
+        - User
+      description: Single a user document
+      parameters:
+        - $ref: "#/components/parameters/idParamsUser"
+      requestBody:
+        content:
+          "application/json":
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Assaludllah Al Labib
+                email:
+                  type: string
+                  example: labib@gmail.com
+                role:
+                  type: string
+                  enum:
+                    - admin
+                    - user
+                  example: user
+                status:
+                  type: string
+                  enum: [public, private]
+                  example: public
+                avatar:
+                  type: string
+                  format: url
+                  example: ""
+      responses:
+        200:
+          description: Single user document
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Update a user Successfully
+                  data:
+                    $ref: "#/components/schemas/UserDTO"
+        404:
+          $ref: "#/components/responses/404"
+        400:
+          $ref: "#/components/responses/400_field"
+        500:
+          $ref: "#/components/responses/500"
     patch:
       security:
         - bearerAuth: []
       tags:
         - User
       description: Update a user document
+      parameters:
+        - $ref: "#/components/parameters/idParamsUser"
       requestBody:
         content:
           "application/json":
@@ -294,6 +353,8 @@ paths:
         - bearerAuth: []
       tags: [User]
       description: Delete a user
+      parameters:
+        - $ref: "#/components/parameters/idParamsUser"
       responses:
         204:
           description: User Delete Successfully
@@ -319,6 +380,8 @@ paths:
         - bearerAuth: []
       tags: [User]
       description: Change User Password
+      parameters:
+        - $ref: "#/components/parameters/idParamsUser"
       requestBody:
         content:
           "application/json":
@@ -1104,7 +1167,7 @@ paths:
       tags: [Answers]
       description: Delete this answer
       parameters:
-        - $ref: "#/components/parameters/idParams"
+        - $ref: "#/components/parameters/idParamsAnswer"
       responses:
         204:
           description: Deleted Your Answer Successfully
@@ -1279,6 +1342,14 @@ components:
       name: id
       required: true
       description: Answer Id
+      schema:
+        type: string
+        example: "1234567abc"
+    idParamsUser:
+      in: path
+      name: id
+      required: true
+      description: User Id
       schema:
         type: string
         example: "1234567abc"
