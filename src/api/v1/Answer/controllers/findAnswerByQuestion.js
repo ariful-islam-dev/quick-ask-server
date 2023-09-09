@@ -14,7 +14,7 @@ const findAnswerByQuestion = async (req, res, next) => {
 
 
     //const Total Items
-    const totalItems = answers.length;
+    const totalItems = answerService.count();
     //pagination
     const pagination = query.getPagination(totalItems, page, limit);
     const links = query.getHateOSQuestions(

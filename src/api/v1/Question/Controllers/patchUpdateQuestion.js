@@ -4,7 +4,7 @@ const patchUpdateQuestion= async(req, res, next)=>{
 
         const id = req.params.id;
     try {
-        const question = await questionService.patchUpdateQuestion(id, req.body);
+        const question = await questionService.patchUpdateQuestion(id, req.body, req.user);
         const response = {
             code: 200,
             message: "Update your question property",

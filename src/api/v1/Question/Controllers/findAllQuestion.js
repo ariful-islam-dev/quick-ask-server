@@ -27,7 +27,6 @@ const findAllQuestion = async (req, res, next) => {
         "description",
         "image",
         "author",
-        "answers",
         "createdAt",
         "updatedAt",
       ],

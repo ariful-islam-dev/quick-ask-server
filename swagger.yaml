@@ -976,17 +976,18 @@ paths:
         - bearerAuth: []
       tags: [Answers]
       description: Answer to the Question
-      parameters:
-        - $ref: "#/components/parameters/idParams"
       requestBody:
         content:
           "application/json":
             schema:
               type: object
               properties:
+                questionId:
+                  type: string
+                  example: 64f8f249d71f96c924c3566c
                 body:
                   type: string
-                  example: Install NodeJS Stable version
+                  example: MDN & w3School is the best Resources of beginner friendly learning resources
                 status:
                   type: string
                   enum:
@@ -1019,6 +1020,36 @@ paths:
           $ref: "#/components/responses/500"
 
   "/answers/{id}":
+    get:
+      security:
+        - bearerAuth: []
+      tags: ["Answers"]
+      description: Get a single Answer by Id
+      parameters:
+        - $ref: "#/components/parameters/idParamsAnswer"
+      responses:
+        200:
+          description: Single Answer
+          content:
+            "application/json":
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: integer
+                    format: int32
+                    example: 200
+                  message:
+                    type: string
+                    example: Updated the answer Successfully
+                  data:
+                    $ref: "#/components/schemas/AnswerDTO"
+        404:
+          $ref: "#/components/responses/404"
+        400:
+          $ref: "#/components/responses/400"
+        500:
+          $ref: "#/components/responses/500"
     patch:
       security:
         - bearerAuth: []
@@ -1026,7 +1057,7 @@ paths:
         - Answers
       description: Update the answer
       parameters:
-        - $ref: "#/components/parameters/idParams"
+        - $ref: "#/components/parameters/idParamsAnswer"
       requestBody:
         content:
           "application/json":
@@ -1040,8 +1071,8 @@ paths:
                   type: string
                   enum:
                     - draft
-                      approved
-                  example: draft
+                    - approved
+                  default: draft
       responses:
         200:
           description: Updated the answer
@@ -1240,6 +1271,14 @@ components:
       name: id
       required: true
       description: Question Id
+      schema:
+        type: string
+        example: "1234567abc"
+    idParamsAnswer:
+      in: path
+      name: id
+      required: true
+      description: Answer Id
       schema:
         type: string
         example: "1234567abc"
