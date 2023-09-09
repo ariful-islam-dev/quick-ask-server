@@ -1,10 +1,9 @@
 import questionController from "../api/v1/Question/index.js";
 
 import answerControllers from "../api/v1/Answer/index.js";
+import userController from "../api/v1/User/index.js";
 import authentication from "../middlewares/Authentication.js";
 import authorization from "../middlewares/Authorization.js";
-import Question from "../model/Question.js";
-import User from "../model/User.js";
 const questionRoute = (router) => {
   router
     .route("/questions")
@@ -39,20 +38,7 @@ const questionRoute = (router) => {
       answerControllers.createAnswer
     );
 
-  router.route("/questions/:id/author").get(async (req, res, next) => {
-    const id = req.params.id;
-    try {
-      const question = await Question.findById(id);
-      const author = await User.findById(question.author);
-      res.status(200).json({
-        code: 200,
-        message: "Your Question's Author",
-        data: author
-      });
-    } catch (error) {
-      next(error);
-    }
-  });
+  router.route("/questions/:id/author").get(userController.findAuthorByQuestion);
 
   //for experiment
 
@@ -68,3 +54,5 @@ const questionRoute = (router) => {
 };
 
 export default questionRoute;
+
+

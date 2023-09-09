@@ -1,13 +1,17 @@
 import defaultConfig from "../../../../config/default.js";
 import answerService from "../../../../lib/Answer/index.js";
+import { notFound } from "../../../../utils/error.js";
 import { query } from "../../../../utils/index.js";
 
 const findAnswerByQuestion = async (req, res, next) => {
   const page = req.query.page || defaultConfig.page;
   const limit = req.query.limit || defaultConfig.limit;
+  const sortBy = req.query.sort_by || defaultConfig.sortBy;
+  const sortType = req.query.sort_type || defaultConfig.sortType;
   const { id } = req.params;
   try {
-    const answers = await answerService.findAllAnswer(id);
+    const answers = await answerService.findAllAnswer(id, {page, limit, sortBy, sortType});
+
 
     //const Total Items
     const totalItems = answers.length;
@@ -22,20 +26,16 @@ const findAnswerByQuestion = async (req, res, next) => {
       req.query
     );
 
-    res.status(200).json({
-      code: 200,
-      message: "Get Post all answer",
-      data: answers,
-      // links: {
-      //   self: "/questions/12345abcle/answers",
-      //   question: "/questions/12345abcle",
-      //   author: "/questions/12345abcle/answers/ans123/auth",
-      //   nextPage: "/questions/12345abcle/answers?page=3&limit=10",
-      //   prevPage: "/questions/12345abcle/answers?page=1&limit=10",
-      // },
-      links,
-      pagination,
-    });
+   if(answers.length === 0){
+    throw notFound("Sorry you have not a question related answer")
+   }
+   res.status(200).json({
+    code: 200,
+    message: "Get Specific Question's Answer",
+    data: answers,
+    links,
+    pagination,
+  });
   } catch (error) {
     next(error);
   }
