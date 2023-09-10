@@ -195,7 +195,6 @@ paths:
                   example: pass1234
                 avatar:
                   type: string
-                  format: url
                   example: ""
                 role:
                   type: string
