@@ -19,7 +19,7 @@ const findAllAnswer = async (req, res, next) => {
      
     const data = query.getTransformItems(
       answers,
-      ["id", "body", "question", "author", "createdAt", "updatedAt"],
+      ["id", "body", "status", "question", "author", "createdAt", "updatedAt"],
       req.path
     );
          // pagination

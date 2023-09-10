@@ -30,12 +30,7 @@ const answerRouter = (router) => {
     .delete(
       authentication,
       authorization(["user", "admin"]),
-      async (req, res, next) => {
-        res.status(204).json({
-          code: 204,
-          message: "Deleted Successfully",
-        });
-      }
+     answerControllers.deleteAnswer
     );
 
   return router;

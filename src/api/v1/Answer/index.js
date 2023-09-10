@@ -1,4 +1,5 @@
 import createAnswer from "./controllers/createAnswer.js";
+import deleteAnswer from "./controllers/deleteAnswer.js";
 import findAllAnswer from "./controllers/findAllAnswer.js";
 import findAnswerByQuestion from "./controllers/findAnswerByQuestion.js";
 import findSingleAnswer from "./controllers/findSingleAnswer.js";
@@ -8,7 +9,8 @@ const answerControllers = {
     findAnswerByQuestion,
     findAllAnswer,
     findSingleAnswer,
-    updateAnswer
+    updateAnswer,
+    deleteAnswer
 }
 
 export default answerControllers;

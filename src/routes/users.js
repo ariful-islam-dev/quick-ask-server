@@ -1,22 +1,11 @@
-import User from "../model/User.js";
+import userController from "../api/v1/User/index.js";
+import authentication from "../middlewares/Authentication.js";
+import authorization from "../middlewares/Authorization.js";
 
 
 const userRoute = (router)=>{
 
-    router.route("/users").get(async(req, res)=>{
-
-        try {
-            const user = await User.find({});
-            
-            res.status(200).json({
-                message: "GET All User",
-                user
-            })
-        } catch (error) {
-            console.log(error)
-        }
-        
-    })
+    router.route("/users").get(authentication, authorization(["admin"]), userController.findAllUser)
     return router;
 }
 
