@@ -6,7 +6,7 @@ const findAllUser = async(page, limit, sortBy, sortType, search)=>{
    const filter = {
     name: {$regex: search, $options: "i"}
    }
-    const users = await User.find(filter).select("-__v").sort(sortStr).skip(page*limit-limit).limit(limit);
+    const users = await User.find(filter).select("-__v -password").sort(sortStr).skip(page*limit-limit).limit(limit);
     return users.map(user=>({...user._doc, id: user.id}))
 }
 

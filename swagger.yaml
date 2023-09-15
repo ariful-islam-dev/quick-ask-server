@@ -200,7 +200,7 @@ paths:
                   type: string
                   enum:
                     - user
-                      admin
+                    - admin
                   example: user
                 status:
                   type: string
@@ -241,32 +241,6 @@ paths:
       description: Single a user document
       parameters:
         - $ref: "#/components/parameters/idParamsUser"
-      requestBody:
-        content:
-          "application/json":
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  example: Assaludllah Al Labib
-                email:
-                  type: string
-                  example: labib@gmail.com
-                role:
-                  type: string
-                  enum:
-                    - admin
-                    - user
-                  example: user
-                status:
-                  type: string
-                  enum: [public, private]
-                  example: public
-                avatar:
-                  type: string
-                  format: url
-                  example: ""
       responses:
         200:
           description: Single user document

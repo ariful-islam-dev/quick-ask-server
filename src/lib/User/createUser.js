@@ -4,8 +4,9 @@ const createUser = async (
   name,
   email,
   password,
-  role,
-  status 
+  role="user",
+  status="public" ,
+  avatar=""
 ) => {
   const user = await new User({
     name,
@@ -13,6 +14,7 @@ const createUser = async (
     password,
     role,
     status,
+    avatar
   });
   await user.save();
 
