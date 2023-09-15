@@ -1,10 +1,11 @@
+
 # Quick Ask - Project Idea
 
 I want to implement a REST API for question asking management system. Several special options will be available. All of the question and answer made by users are accessible publicly. User must be logged in to their accounts in order to ask a question or answer. Each user has control over their own Question and Answer. Everything needs to be managed by the admin. The user can add custom error image to the Question example.
 
 # SRS - Software Requirement Specification
 
-**_Project Name: **quick-ask**_**
+**\_Project Name: \***quick-ask**\*\_**
 
 ### 1. Introduction:
 
@@ -23,33 +24,33 @@ Administrators should be able to login securely using their credentials.
 
 ### 4. User Management
 
-- [x] Admin can create new users
-- [x] Admin can see a  list of all user
-- [x] Admin can update or delete users
-- [x] Admin can change password any user
-- [x] Authenticated user can update their name, change password and delete Their account
-- [x] User Photo Management:
-- [x] Authenticated user should be upload their user image.
-- [x] Only one photo upload user for avatar image.
+    - [x] Admin can create new users
+    - [x] Admin can see a  list of all user
+    - [x] Admin can update or delete users
+    - [x] Admin can change password any user
+    - [x] Authenticated user can update their name, change password and delete Their account
+    - [x] User Photo Management:
+    - [x] Authenticated user should be upload their user image.
+    - [x] Only one photo upload user for avatar image.
 
 ### 5. Question Management
 
-- [x] Authenticated user can post their Question, edit and delete.
-- [x] Question should contain a question title, body and error/problem related photo(optional)
-- [x] Every unauthenticated user should be able to view a list of all question and question related answer.
-- [x] Admin can manage and verified question
+    - [x] Authenticated user can post their Question, edit and delete.
+    - [x] Question should contain a question title, body and error/problem related photo(optional)
+    - [x] Every unauthenticated user should be able to view a list of all question and question related answer.
+    - [x] Admin can manage and verified question
 
 ### 6. Answer Management
 
-- [x] Authenticated users should be able to post question
-- [x] Answer should include the any author’s name and answer text or solution
-- [x] Any unauthorized and authenticated user should be able to view answer associated with a question.
-- [x] Admin can manage all answers.
+    - [x] Authenticated users should be able to post question
+    - [x] Answer should include the any author’s name and answer text or solution
+    - [x] Any unauthorized and authenticated user should be able to view answer associated with a question.
+    - [x] Admin can manage all answers.
 
 ### 7. Error/Problem Related Photo Management
 
-- [x] Authenticated users should be able to upload and update a problem related photo.
-- [x] The system should support various image formats and validate uploaded error photos.
+    - [x] Authenticated users should be able to upload and update a problem related photo.
+    - [x] The system should support various image formats and validate uploaded error photos.
 
 ## Non-Functional Requirement
 
