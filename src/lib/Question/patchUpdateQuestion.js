@@ -1,5 +1,5 @@
-import Question from "../../model/Question.js";
-import { notFound } from "../../utils/error.js";
+const Question = require("../../model/Question.js");
+const { notFound } = require("../../utils/error.js");
 
 const patchUpdateQuestion = async(id, {title, description, image, status}, user)=>{
     const question = await Question.findById(id);
@@ -19,5 +19,5 @@ const patchUpdateQuestion = async(id, {title, description, image, status}, user)
     return {...question._doc, id: question.id};
 };
 
-export default patchUpdateQuestion;
+module.exports = patchUpdateQuestion;
 

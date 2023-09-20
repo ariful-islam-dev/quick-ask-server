@@ -1,6 +1,6 @@
-import express from "express";
-import applyAllMiddleware from "./middlewares/index.js";
-import router from "./routes/index.js";
+const express = require("express");
+const applyAllMiddleware = require("./middlewares/index.js");
+const router = require("./routes/index.js");
 
 const app = express();
 
@@ -9,7 +9,7 @@ applyAllMiddleware(app)
 // Router
 app.use("/api/v1", router);
 
-app.get("/health", (req, res)=>{
+app.get("/health", (_req, res)=>{
     res.status(200).json({
         message: "OK"
     })
@@ -24,4 +24,4 @@ app.use((err, _req, res, _next)=>{
     })
 })
 
-export default app;
+module.exports = app;

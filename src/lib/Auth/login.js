@@ -1,8 +1,8 @@
 
-import { badRequest } from "../../utils/error.js";
-import { matchHashing } from "../../utils/hashing.js";
-import findUserByEmail from "../User/findUserByEmail.js";
-import token from "../token/index.js";
+const { badRequest } = require("../../utils/error.js");
+const { matchHashing } = require("../../utils/hashing.js");
+const findUserByEmail = require("../User/findUserByEmail.js");
+const token = require("../token/index.js");
 
 const login = async(email, password)=>{
      //find user
@@ -27,4 +27,4 @@ const login = async(email, password)=>{
      return token.genJWTToken(payload)
 }
 
-export default login
+module.exports = login

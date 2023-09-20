@@ -1,5 +1,5 @@
-import Answer from "../../model/Answer.js";
-import { notFound } from "../../utils/error.js";
+const Answer = require("../../model/Answer.js");
+const { notFound } = require("../../utils/error.js");
 
 const updateAnswer = async(id, {body, status}, user)=>{
     const answer = await Answer.findById(id);
@@ -19,4 +19,4 @@ const updateAnswer = async(id, {body, status}, user)=>{
 
 };
 
-export default updateAnswer;
+module.exports= updateAnswer;

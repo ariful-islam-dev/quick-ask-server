@@ -1,10 +1,12 @@
-import createAnswer from "./controllers/createAnswer.js";
-import deleteAnswer from "./controllers/deleteAnswer.js";
-import findAllAnswer from "./controllers/findAllAnswer.js";
-import findAnswerByQuestion from "./controllers/findAnswerByQuestion.js";
-import findSingleAnswer from "./controllers/findSingleAnswer.js";
-import updateAnswer from "./controllers/updateAnswer.js";
-const answerControllers = {
+const createAnswer = require("./controllers/createAnswer.js");
+const deleteAnswer = require("./controllers/deleteAnswer.js");
+const findAllAnswer = require("./controllers/findAllAnswer.js");
+const findAnswerByQuestion = require("./controllers/findAnswerByQuestion.js");
+const findSingleAnswer = require("./controllers/findSingleAnswer.js");
+const updateAnswer = require("./controllers/updateAnswer.js");
+
+
+module.exports = {
     createAnswer, 
     findAnswerByQuestion,
     findAllAnswer,
@@ -12,6 +14,4 @@ const answerControllers = {
     updateAnswer,
     deleteAnswer
 }
-
-export default answerControllers;
 

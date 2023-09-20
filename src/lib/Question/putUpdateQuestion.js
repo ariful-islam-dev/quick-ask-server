@@ -1,5 +1,5 @@
-import Question from "../../model/Question.js";
-import createQuestion from "./createQuestion.js";
+const Question = require("../../model/Question.js");
+const createQuestion = require("./createQuestion.js");
 
 const putUpdateQuestion = async(id,{title, description, image="", status="public", author})=>{
 
@@ -25,4 +25,4 @@ const putUpdateQuestion = async(id,{title, description, image="", status="public
 
 }
 
-export default putUpdateQuestion;
+module.exports = putUpdateQuestion;

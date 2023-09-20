@@ -1,5 +1,5 @@
-import defaultConfig from "../config/default.js";
-import generateQueryStr from "./qs.js";
+const defaultConfig = require("../config/default.js");
+const generateQueryStr = require("./qs.js");
 
 // added data link
 const getTransformItems = (items = [], selection = [], path = "/") => {
@@ -63,5 +63,5 @@ const getHateOSQuestions=(url="/", hasNext=false, hasPrev=false,page=1, path="",
   return links
 }
 
-export { getHateOSQuestions, getPagination, getTransformItems };
+module.exports= { getHateOSQuestions, getPagination, getTransformItems };
 

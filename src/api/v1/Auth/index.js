@@ -1,7 +1,6 @@
-import login from "./Controllers/login.js";
-import register from "./Controllers/register.js";
-
-const authController = { login, register };
+const login = require("./Controllers/login.js");
+const register = require("./Controllers/register.js");
 
 
-export default authController;
+
+module.exports = {login, register}

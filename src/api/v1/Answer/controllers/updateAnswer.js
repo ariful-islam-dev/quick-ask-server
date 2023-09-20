@@ -1,4 +1,4 @@
-import answerService from "../../../../lib/Answer/index.js";
+const answerService = require("../../../../lib/Answer/index.js");
 
 const updateAnswer =async (req, res, next) => {
     const id = req.params.id;
@@ -18,4 +18,4 @@ const updateAnswer =async (req, res, next) => {
     }
   }
 
-  export default updateAnswer;
+module.exports = updateAnswer;

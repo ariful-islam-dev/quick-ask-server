@@ -1,13 +1,15 @@
-import count from "./count.js";
-import createQuestion from "./createQuestion.js";
-import deleteQuestion from "./deleteQuestion.js";
-import findAllQuestion from "./findAllQuestion.js";
-import findSingleQuestion from "./findSingleQuestion.js";
-import patchUpdateQuestion from "./patchUpdateQuestion.js";
-import putUpdateQuestion from "./putUpdateQuestion.js";
+const count = require("./count.js");
+const createQuestion = require("./createQuestion.js");
+const deleteQuestion = require("./deleteQuestion.js");
+const findAllQuestion = require("./findAllQuestion.js");
+const findSingleQuestion = require("./findSingleQuestion.js");
+const patchUpdateQuestion = require("./patchUpdateQuestion.js");
+const putUpdateQuestion = require("./putUpdateQuestion.js");
 
 
-const questionService ={
+
+
+module.expo = {
     findAllQuestion,
     count,
     createQuestion,
@@ -16,5 +18,3 @@ const questionService ={
     patchUpdateQuestion,
     deleteQuestion
 }
-
-export default questionService;

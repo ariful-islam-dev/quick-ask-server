@@ -1,9 +1,9 @@
-import userController from "../api/v1/User/index.js";
-import authentication from "../middlewares/Authentication.js";
-import authorization from "../middlewares/Authorization.js";
-import User from "../model/User.js";
-import { notFound } from "../utils/error.js";
-import { hashing } from "../utils/hashing.js";
+const userController = require("../api/v1/User/index.js");
+const authentication = require("../middlewares/Authentication.js");
+const authorization = require("../middlewares/Authorization.js");
+const User = require("../model/User.js");
+const { notFound } = require("../utils/error.js");
+const { hashing } = require("../utils/hashing.js");
 
 const userRoute = (router) => {
   router
@@ -45,4 +45,4 @@ const userRoute = (router) => {
   return router;
 };
 
-export default userRoute;
+module.exports= userRoute;

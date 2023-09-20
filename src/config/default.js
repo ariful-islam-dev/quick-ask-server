@@ -8,4 +8,4 @@ const config = {
 };
 
 const defaultConfig = Object.freeze(config)
-export default defaultConfig;
+module.exports = defaultConfig;

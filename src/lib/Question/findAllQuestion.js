@@ -1,4 +1,4 @@
-import Question from "../../model/Question.js";
+const Question = require("../../model/Question.js");
 
 const findAllQuestion = async (page, limit, sortBy, sortType, search) => {
   //sort
@@ -16,4 +16,4 @@ const findAllQuestion = async (page, limit, sortBy, sortType, search) => {
     return questions.map(question=>({...question._doc, id: question.id}))
 };
 
-export default findAllQuestion;
+module.exports = findAllQuestion;

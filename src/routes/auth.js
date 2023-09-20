@@ -1,7 +1,9 @@
-import authController from "../api/v1/Auth/index.js";
+const authController = require("../api/v1/Auth");
 const authRoute = (router) => {
   // Register User
   router.route("/auth/register").post(authController.register);
+ 
+  
 
   // Login User
   router.route("/auth/login").post(authController.login);
@@ -10,4 +12,4 @@ const authRoute = (router) => {
   return router;
 };
 
-export default authRoute;
+module.exports= authRoute;

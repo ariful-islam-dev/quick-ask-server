@@ -1,4 +1,4 @@
-import userService from "../../../../lib/User/index.js";
+const userService = require("../../../../lib/User/index.js");
 
 const updateUser = async (req, res, next) => {
     const id = req.params.id;
@@ -20,4 +20,4 @@ const updateUser = async (req, res, next) => {
     }
 }
 
-export default updateUser;
+module.exports= updateUser;

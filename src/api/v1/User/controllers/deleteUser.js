@@ -1,4 +1,4 @@
-import userService from "../../../../lib/User/index.js";
+const userService = require("../../../../lib/User/index.js");
 
 const deleteUser = async(req, res, next)=>{
     const id = req.params.id;
@@ -13,4 +13,4 @@ const deleteUser = async(req, res, next)=>{
     }
 }
 
-export default deleteUser;
+module.exports = deleteUser;

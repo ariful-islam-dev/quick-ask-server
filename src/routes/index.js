@@ -1,8 +1,8 @@
-import express from "express";
-import answerRouter from "./answers.js";
-import authRoute from "./auth.js";
-import questionRoute from "./questions.js";
-import userRoute from "./users.js";
+const express = require("express");
+const answerRouter = require("./answers.js");
+const authRoute = require("./auth.js");
+const questionRoute = require("./questions.js");
+const userRoute = require("./users.js");
 
 const router = express.Router();
 
@@ -11,4 +11,4 @@ userRoute(router);
 questionRoute(router);
 answerRouter(router);
 
-export default router;
+module.exports = router;

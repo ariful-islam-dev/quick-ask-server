@@ -1,7 +1,7 @@
-import defaultConfig from "../../../../config/default.js";
-import answerService from "../../../../lib/Answer/index.js";
-import { notFound } from "../../../../utils/error.js";
-import { query } from "../../../../utils/index.js";
+const defaultConfig = require("../../../../config/default.js");
+const answerService = require("../../../../lib/Answer/index.js");
+const { notFound } = require("../../../../utils/error.js");
+const { query } = require("../../../../utils/index.js");
 
 const findAnswerByQuestion = async (req, res, next) => {
   const page = req.query.page || defaultConfig.page;
@@ -41,4 +41,4 @@ const findAnswerByQuestion = async (req, res, next) => {
   }
 };
 
-export default findAnswerByQuestion;
+module.exports = findAnswerByQuestion;

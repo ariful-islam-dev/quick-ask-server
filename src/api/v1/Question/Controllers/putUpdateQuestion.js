@@ -1,4 +1,4 @@
-import questionService from "../../../../lib/Question/index.js";
+const questionService = require("../../../../lib/Question/index.js");
 
 const putUpdateQuestion = async(req, res, next)=>{
 
@@ -23,4 +23,4 @@ const putUpdateQuestion = async(req, res, next)=>{
    }
   }
 
-export default putUpdateQuestion;
+module.exports = putUpdateQuestion;

@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import { serverError } from "../../utils/error.js";
+const jwt = require("jsonwebtoken");
+const { serverError } = require("../../utils/error.js");
 
 const verifyToken = (token, secret=process.env.ACCESS_TOKEN_SECRETE, algorithm="HS256")=>{
     try {
@@ -9,4 +9,4 @@ const verifyToken = (token, secret=process.env.ACCESS_TOKEN_SECRETE, algorithm="
     }
 };
 
-export default verifyToken;
+module.exports = verifyToken;

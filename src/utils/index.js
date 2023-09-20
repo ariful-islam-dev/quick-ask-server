@@ -1,5 +1,5 @@
-import generateQueryStr from "./qs.js";
-import { getHateOSQuestions, getPagination, getTransformItems } from "./query.js";
+const generateQueryStr = require("./qs.js");
+const { getHateOSQuestions, getPagination, getTransformItems } = require("./query.js");
 
 const qs = {generateQueryStr}
 
@@ -9,5 +9,5 @@ const query = {
     getHateOSQuestions
 }
 
-export { qs, query };
+module.exports= { qs, query };
 

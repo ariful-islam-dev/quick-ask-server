@@ -1,4 +1,4 @@
-import answerService from "../../../../lib/Answer/index.js";
+const answerService = require("../../../../lib/Answer/index.js");
 
 const deleteAnswer =  async (req, res, next) => {
     const id = req.params.id;
@@ -13,4 +13,4 @@ const deleteAnswer =  async (req, res, next) => {
    }
   }
 
-  export default deleteAnswer;
+  module.exports = deleteAnswer;

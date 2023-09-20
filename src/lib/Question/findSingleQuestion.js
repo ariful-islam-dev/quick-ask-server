@@ -1,5 +1,5 @@
-import Question from "../../model/Question.js";
-import { badRequest, notFound } from "../../utils/error.js";
+const Question = require("../../model/Question.js");
+const { badRequest, notFound } = require("../../utils/error.js");
 
 const findSingleQuestion = async(id, expand="" )=>{
     if(!id) throw badRequest("id is require");
@@ -36,4 +36,4 @@ const findSingleQuestion = async(id, expand="" )=>{
     return data
 };
 
-export default findSingleQuestion;
+module.exports = findSingleQuestion;

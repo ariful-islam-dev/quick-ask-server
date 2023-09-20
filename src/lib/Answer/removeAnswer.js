@@ -1,5 +1,5 @@
-import Answer from "../../model/Answer.js";
-import { authorizationError, notFound } from "../../utils/error.js";
+const Answer = require("../../model/Answer.js");
+const { authorizationError, notFound } = require("../../utils/error.js");
 
 const removeAnswer = async(id, user)=>{
     const answer = await Answer.findById(id);
@@ -20,4 +20,4 @@ const removeAnswer = async(id, user)=>{
     return Answer.findByIdAndDelete(id)
 }
 
-export default removeAnswer;
+module.exports= removeAnswer;

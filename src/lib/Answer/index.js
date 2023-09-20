@@ -1,10 +1,12 @@
-import count from "./count.js";
-import createAnswer from "./createAnswer.js";
-import findAllAnswer from "./findAllAnswer.js";
-import findSingleAnswer from "./findSingleAnswer.js";
-import removeAnswer from "./removeAnswer.js";
-import updateAnswer from "./updateAnswer.js";
-const answerService = {
+const count = require("./count.js");
+const createAnswer = require("./createAnswer.js");
+const findAllAnswer = require("./findAllAnswer.js");
+const findSingleAnswer = require("./findSingleAnswer.js");
+const removeAnswer = require("./removeAnswer.js");
+const updateAnswer = require("./updateAnswer.js");
+
+
+module.exports = {
     createAnswer,
     findAllAnswer, 
     count,
@@ -12,5 +14,3 @@ const answerService = {
     updateAnswer,
     removeAnswer
 };
-
-export default answerService;

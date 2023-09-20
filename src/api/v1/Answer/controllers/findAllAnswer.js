@@ -1,6 +1,6 @@
-import defaultConfig from "../../../../config/default.js";
-import answerService from "../../../../lib/Answer/index.js";
-import { query } from "../../../../utils/index.js";
+const defaultConfig = require("../../../../config/default.js");
+const answerService = require("../../../../lib/Answer/index.js");
+const { query } = require("../../../../utils/index.js");
 
 const findAllAnswer = async (req, res, next) => {
   const page = req.query.page || defaultConfig.page;
@@ -47,4 +47,4 @@ const findAllAnswer = async (req, res, next) => {
   }
 };
 
-export default findAllAnswer;
+module.exports = findAllAnswer;

@@ -1,6 +1,6 @@
-import defaultConfig from "../../../../config/default.js";
-import questionService from "../../../../lib/Question/index.js";
-import { query } from "../../../../utils/index.js";
+const defaultConfig = require("../../../../config/default.js");
+const questionService = require("../../../../lib/Question/index.js");
+const { query } = require("../../../../utils/index.js");
 const findAllQuestion = async (req, res, next) => {
   // query of request
   const page = req.query.page || defaultConfig.page;
@@ -52,4 +52,4 @@ const findAllQuestion = async (req, res, next) => {
   }
 };
 
-export default findAllQuestion;
+module.exports = findAllQuestion;

@@ -1,4 +1,4 @@
-import Question from "../../model/Question.js";
+const Question = require("../../model/Question.js");
 
 const count = async(search="")=>{
     const filter = {
@@ -8,4 +8,4 @@ const count = async(search="")=>{
 
 };
 
-export default count;
+module.exports= count;

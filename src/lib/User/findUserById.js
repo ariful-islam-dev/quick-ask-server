@@ -1,4 +1,4 @@
-import User from "../../model/User.js";
+const User = require("../../model/User.js");
 
 const findUserById = async(id)=>{
     const user = await User.findById(id).select("-password");
@@ -6,4 +6,4 @@ const findUserById = async(id)=>{
     return {...user._doc, id: user.id}
 };
 
-export default findUserById;
+module.exports = findUserById;
