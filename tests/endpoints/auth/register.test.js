@@ -9,7 +9,7 @@ const payload = {
 }
 describe("POST /auth/register", ()=>{
     it('should create a new user', async()=>{
-        const token = await request(app).post("/api/v1/auth/register", register).send(payload);
+        const token = await request(app).post("/auth/register", register).send(payload);
         expect(token.status).toBe(201);
     })
 })

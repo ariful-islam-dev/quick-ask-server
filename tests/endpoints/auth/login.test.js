@@ -18,7 +18,7 @@ describe("POST /auth/register", () => {
     it("invalide creadential", async()=>{
         const pass = 'asbeosu12233232'
         await request(app).post("/api/v1/auth/register", register).send(payload);
-        const response = await request(app).post("/api/v1/auth/login", login).send({ email: payload.email, password });
+        const response = await request(app).post("/api/v1/auth/login", login).send({ email: payload.email, password: "apss1245" });
         expect(response.status).toBe(400);
     })
 })
