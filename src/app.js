@@ -1,13 +1,16 @@
 const express = require("express");
 const applyAllMiddleware = require("./middlewares/index.js");
-const router = require("./routes/index.js");
+// const router = require("./routes/index.js");
+const { register } = require("./api/v1/Auth/index.js");
 
 const app = express();
 
 // Middleware
 applyAllMiddleware(app)
 // Router
-app.use("/api/v1", router);
+
+app.post("/api/v1/auth/register", register)
+
 
 app.get("/health", (_req, res)=>{
     res.status(200).json({

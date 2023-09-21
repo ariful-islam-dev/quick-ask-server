@@ -11,8 +11,8 @@ const register = async(name, email, password, status = "public", role = "user") 
       role="admin"
     }
   
-  const hasUser = userService.existUser(email);
-  if (!hasUser) {
+  const hasUser = await userService.existUser(email);
+  if (hasUser) {
     throw badRequest("User Already exist");
   }
 

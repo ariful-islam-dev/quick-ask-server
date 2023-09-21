@@ -1,6 +1,7 @@
 const http = require('http');
 const app = require('./app.js');
 const connectDB = require('./db/index.js');
+console.log(app)
 
 const server = http.createServer(app);
 

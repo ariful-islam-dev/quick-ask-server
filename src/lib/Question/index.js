@@ -9,7 +9,7 @@ const putUpdateQuestion = require("./putUpdateQuestion.js");
 
 
 
-module.expo = {
+module.exports = {
     findAllQuestion,
     count,
     createQuestion,

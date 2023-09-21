@@ -1,15 +1,15 @@
 const authController = require("../api/v1/Auth");
-const authRoute = (router) => {
+const authRoute = (app) => {
   // Register User
-  router.route("/auth/register").post(authController.register);
- 
+  app.post("/auth/register",authController.register)
   
 
+
   // Login User
-  router.route("/auth/login").post(authController.login);
+  app.post("/auth/login", authController.login);
 
   // return the imported router
-  return router;
+  return app;
 };
 
 module.exports= authRoute;
