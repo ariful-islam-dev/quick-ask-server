@@ -4,13 +4,13 @@ const authRoute = require("./auth.js");
 const questionRoute = require("./questions.js");
 const userRoute = require("./users.js");
 
-const router = (app)=>{
+
+const router = express.Router();
     
-   return authRoute(app);
-    // userRoute(app);
-    // questionRoute(app);
-    // answerRouter(app);
-   
-}
+    authRoute(router);
+    userRoute(router);
+    questionRoute(router);
+    answerRouter(router);
+
 
 module.exports = router;

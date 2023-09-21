@@ -1,7 +1,7 @@
 const express = require("express");
-const applyAllMiddleware = require("./middlewares/index.js");
+const applyAllMiddleware = require("./middlewares");
 // const router = require("./routes/index.js");
-const { register } = require("./api/v1/Auth/index.js");
+const router = require("./routes/index");
 
 const app = express();
 
@@ -9,7 +9,7 @@ const app = express();
 applyAllMiddleware(app)
 // Router
 
-app.post("/api/v1/auth/register", register)
+app.use("/api/v1", router)
 
 
 app.get("/health", (_req, res)=>{
