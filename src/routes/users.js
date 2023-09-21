@@ -17,29 +17,7 @@ const userRoute = (router) => {
     .patch(authentication, authorization(["admin"]), userController.updateUser)
     .delete(authentication, authorization(["admin"]), userController.deleteUser)
 
-  router.route("/users/:id/password").patch(authentication, authorization(["admin"]), async(req, res, next)=>{
-    const id = req.params.id;
-    const password = req.body.password;
-    try {
-      const user = await User.findById(id);
-      if(!user){
-        throw notFound("User not found")
-      }
-      
-      
-      // new password hash
-      const hashPass = await hashing(password, 10);
-      user.password = hashPass;
-      await user.save()
-      res.status(200).json({
-        code: 200,
-        message: "Change user password successfully",
-        data: user
-      })
-    } catch (error) {
-      next(error)
-    }
-  })
+  router.route("/users/:id/password").patch(authentication, authorization(["admin"]), userController.changePassword)
 
 
   return router;
