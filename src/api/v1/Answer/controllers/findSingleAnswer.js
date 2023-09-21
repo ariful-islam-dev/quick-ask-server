@@ -2,7 +2,6 @@ const answerService = require("../../../../lib/Answer/index.js");
 
 const findSingleAnswer =  async (req, res, next) => {
     const id = req.params.id;
-    console.log(id)
 
     try {
         const answer = await answerService.findSingleAnswer(id);
