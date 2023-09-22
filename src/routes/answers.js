@@ -1,6 +1,6 @@
-import answerControllers from "../api/v1/Answer/index.js";
-import authentication from "../middlewares/Authentication.js";
-import authorization from "../middlewares/Authorization.js";
+const answerControllers = require("../api/v1/Answer/index.js");
+const authentication = require("../middlewares/Authentication.js");
+const authorization = require("../middlewares/Authorization.js");
 
 const answerRouter = (router) => {
   router
@@ -36,4 +36,4 @@ const answerRouter = (router) => {
   return router;
 };
 
-export default answerRouter;
+module.exports= answerRouter;

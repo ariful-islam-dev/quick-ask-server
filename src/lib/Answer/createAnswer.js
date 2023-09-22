@@ -1,4 +1,4 @@
-import Answer from "../../model/Answer.js";
+const Answer = require("../../model/Answer.js");
 
 const createAnswer = async(body, status="draft", questionId, authorId)=>{
     const answer = await new Answer({body, status, question: questionId, author: authorId});
@@ -6,4 +6,4 @@ const createAnswer = async(body, status="draft", questionId, authorId)=>{
     return {...answer._doc, id: answer.id};
 }
 
-export default createAnswer;
+module.exports = createAnswer;

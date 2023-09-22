@@ -1,6 +1,6 @@
-import http from 'http';
-import app from './app.js';
-import connectDB from './db/index.js';
+const http = require('http');
+const app = require('./app.js');
+const connectDB = require('./db/index.js');
 
 const server = http.createServer(app);
 

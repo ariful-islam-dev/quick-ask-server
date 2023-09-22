@@ -1,7 +1,7 @@
-import User from "../../model/User.js";
-import { badRequest } from "../../utils/error.js";
-import { hashing } from "../../utils/hashing.js";
-import userService from "../User/index.js";
+const User = require("../../model/User.js");
+const { badRequest } = require("../../utils/error.js");
+const { hashing } = require("../../utils/hashing.js");
+const userService = require("../User/index.js");
 
 const register = async(name, email, password, status = "public", role = "user") => {
 
@@ -11,8 +11,8 @@ const register = async(name, email, password, status = "public", role = "user") 
       role="admin"
     }
   
-  const hasUser = userService.existUser(email);
-  if (!hasUser) {
+  const hasUser = await userService.existUser(email);
+  if (hasUser) {
     throw badRequest("User Already exist");
   }
 
@@ -29,4 +29,4 @@ const register = async(name, email, password, status = "public", role = "user") 
   return user;
 };
 
-export default register;
+module.exports= register;

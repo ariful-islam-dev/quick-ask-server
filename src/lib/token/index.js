@@ -1,9 +1,7 @@
-import decodeToken from "./decodeToken.js";
-import genJWTToken from "./genJWTToken.js";
-import verifyToken from "./verifyToken.js";
+const decodeToken = require("./decodeToken.js");
+const genJWTToken = require("./genJWTToken.js");
+const verifyToken = require("./verifyToken.js");
 
-const token = {
-    decodeToken, genJWTToken, verifyToken
-}
 
-export default token
+
+module.exports = {decodeToken, genJWTToken, verifyToken}

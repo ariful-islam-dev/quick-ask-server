@@ -1,5 +1,5 @@
-import jwt from "jsonwebtoken";
-import { serverError } from "../../utils/error.js";
+const jwt = require("jsonwebtoken");
+const { serverError } = require("../../utils/error.js");
 
 
 const genJWTToken =(payload, secret=process.env.ACCESS_TOKEN_SECRETE, algorithm="HS256", expiresIn="1h")=>{
@@ -11,4 +11,4 @@ const genJWTToken =(payload, secret=process.env.ACCESS_TOKEN_SECRETE, algorithm=
    }
 }
 
-export default genJWTToken;
+module.exports= genJWTToken;

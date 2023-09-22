@@ -1,8 +1,8 @@
-import express from "express";
-import * as OpenApiValidator from "express-openapi-validator";
-import morgan from "morgan";
-import swaggerUI from "swagger-ui-express";
-import YAML from "yamljs";
+const express = require("express");
+const OpenApiValidator = require("express-openapi-validator");
+const morgan = require("morgan");
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
 
 
 const swaggerDocument = YAML.load("./swagger.yaml");
@@ -28,4 +28,4 @@ const applyAllMiddleware = (app)=>{
       return app;
 }
 
-export default applyAllMiddleware;
+module.exports= applyAllMiddleware;

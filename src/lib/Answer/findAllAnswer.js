@@ -1,4 +1,4 @@
-import Answer from "../../model/Answer.js";
+const Answer = require("../../model/Answer.js");
 
 const findAllAnswer = async (questionId, { page, limit, sortBy, sortType }) => {
   const sortStr = `${sortType === "dsc" ? "-" : ""}${sortBy}`;
@@ -22,4 +22,4 @@ const findAllAnswer = async (questionId, { page, limit, sortBy, sortType }) => {
   return answers.map(answer=>({...answer._doc, id: answer.id}));
 };
 
-export default findAllAnswer;
+module.exports= findAllAnswer;

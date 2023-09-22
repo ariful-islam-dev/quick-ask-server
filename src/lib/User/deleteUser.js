@@ -1,6 +1,6 @@
-import Answer from "../../model/Answer.js";
-import Question from "../../model/Question.js";
-import User from "../../model/User.js";
+const Answer = require("../../model/Answer.js");
+const Question = require("../../model/Question.js");
+const User = require("../../model/User.js");
 
 const deleteUser = async(id)=>{
     const user = await User.findById(id);
@@ -27,4 +27,4 @@ const deleteUser = async(id)=>{
     return User.findByIdAndDelete(id);
 }
 
-export default deleteUser;
+module.exports = deleteUser;

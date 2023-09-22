@@ -1,4 +1,4 @@
-import authService from "../../../../lib/Auth/index.js";
+const authService = require("../../../../lib/Auth/index.js");
 
 const login = async(req, res, next) => {
     const {email, password}=req.body;
@@ -23,4 +23,4 @@ const login = async(req, res, next) => {
     }
   };
 
-export default login;
+module.exports = login;

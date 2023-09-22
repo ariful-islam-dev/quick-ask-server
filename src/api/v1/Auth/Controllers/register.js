@@ -1,5 +1,5 @@
-import authService from "../../../../lib/Auth/index.js";
-import token from "../../../../lib/token/index.js";
+const authService = require("../../../../lib/Auth/index.js");
+const token = require("../../../../lib/token/index.js");
 
 
 
@@ -37,4 +37,4 @@ const register = async (req, res, next) => {
   }
 };
 
-export default register;
+module.exports = register;

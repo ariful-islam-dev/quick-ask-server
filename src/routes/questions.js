@@ -1,9 +1,9 @@
-import questionController from "../api/v1/Question/index.js";
+const questionController = require("../api/v1/Question/index.js");
 
-import answerControllers from "../api/v1/Answer/index.js";
-import userController from "../api/v1/User/index.js";
-import authentication from "../middlewares/Authentication.js";
-import authorization from "../middlewares/Authorization.js";
+const answerControllers = require("../api/v1/Answer/index.js");
+const userController = require("../api/v1/User/index.js");
+const authentication = require("../middlewares/Authentication.js");
+const authorization = require("../middlewares/Authorization.js");
 const questionRoute = (router) => {
   router
     .route("/questions")
@@ -53,6 +53,6 @@ const questionRoute = (router) => {
   return router;
 };
 
-export default questionRoute;
+module.exports= questionRoute;
 
 

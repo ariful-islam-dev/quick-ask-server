@@ -1,4 +1,4 @@
-import Question from "../../model/Question.js";
+const Question = require("../../model/Question.js");
 
 const createQuestion =async(title, description, image="", status="public", author)=>{
    const question = await new Question({
@@ -8,4 +8,4 @@ const createQuestion =async(title, description, image="", status="public", autho
    return {...question._doc, id: question.id}
 };
 
-export default createQuestion;
+module.exports =  createQuestion;

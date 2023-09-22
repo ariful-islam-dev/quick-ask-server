@@ -1,4 +1,4 @@
-import userService from "../../../../lib/User/index.js";
+const userService = require("../../../../lib/User/index.js");
 
 const findUserById = async (req, res, next) => {
     const id = req.params.id;
@@ -17,4 +17,4 @@ const findUserById = async (req, res, next) => {
     }
 }
 
-export default findUserById;
+module.exports = findUserById;

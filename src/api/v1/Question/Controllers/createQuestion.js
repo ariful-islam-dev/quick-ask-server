@@ -1,4 +1,4 @@
-import questionService from "../../../../lib/Question/index.js";
+const questionService = require("../../../../lib/Question/index.js");
 
 const createQuestion = async(req, res, next)=>{
     const {title, description, image, status}=req.body;
@@ -15,4 +15,4 @@ const createQuestion = async(req, res, next)=>{
     }
 };
 
-export default createQuestion;
+module.exports = createQuestion;

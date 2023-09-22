@@ -1,6 +1,6 @@
-import Question from "../../model/Question.js";
-import User from "../../model/User.js";
-import { notFound } from "../../utils/error.js";
+const Question = require("../../model/Question.js");
+const User = require("../../model/User.js");
+const { notFound } = require("../../utils/error.js");
 
 const findAuthorByQuestion = async(questionId)=>{
     const question = await Question.findById(questionId);
@@ -12,4 +12,4 @@ const findAuthorByQuestion = async(questionId)=>{
     return {...author._doc, id:author.id};
 }
 
-export default findAuthorByQuestion;
+module.exports = findAuthorByQuestion;

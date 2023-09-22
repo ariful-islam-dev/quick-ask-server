@@ -296,7 +296,6 @@ paths:
                   example: public
                 avatar:
                   type: string
-                  format: url
                   example: ""
       responses:
         200:
@@ -922,34 +921,34 @@ paths:
         500:
           $ref: "#/components/responses/500"
 
-  "/questions/upload":
-    post:
-      description: Update a file;
-      tags:
-        - Question
+  # "/questions/upload":
+  #   post:
+  #     description: Update a file;
+  #     tags:
+  #       - Question
 
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                  example: "Excel Summation Problem"
-                description:
-                  type: string
-                  example: "I have no idea in js"
-                image:
-                  type: string
-                  format: binary
-              required:
-                - title
-                - description
+  #     requestBody:
+  #       content:
+  #         multipart/form-data:
+  #           schema:
+  #             type: object
+  #             properties:
+  #               title:
+  #                 type: string
+  #                 example: "Excel Summation Problem"
+  #               description:
+  #                 type: string
+  #                 example: "I have no idea in js"
+  #               image:
+  #                 type: string
+  #                 format: binary
+  #             required:
+  #               - title
+  #               - description
 
-      responses:
-        200:
-          description: File updated successfully
+  #     responses:
+  #       200:
+  #         description: File updated successfully
 
   "/answers":
     get:

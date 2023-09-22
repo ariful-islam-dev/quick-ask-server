@@ -1,5 +1,5 @@
-import userService from "../../../../lib/User/index.js";
-import { hashing } from "../../../../utils/hashing.js";
+const userService = require("../../../../lib/User/index.js");
+const { hashing } = require("../../../../utils/hashing.js");
 
 const createUser = async(req, res, next) => {
 
@@ -22,4 +22,4 @@ const createUser = async(req, res, next) => {
    }
   }
 
-  export default createUser;
+module.exports = createUser;

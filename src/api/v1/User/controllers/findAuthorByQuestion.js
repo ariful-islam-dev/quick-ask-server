@@ -1,4 +1,4 @@
-import userService from "../../../../lib/User/index.js";
+const userService = require("../../../../lib/User/index.js");
 
 const findAuthorByQuestion = async (req, res, next) => {
   const id = req.params.id;
@@ -14,4 +14,4 @@ const findAuthorByQuestion = async (req, res, next) => {
   }
 };
 
-export default findAuthorByQuestion;
+module.exports = findAuthorByQuestion;

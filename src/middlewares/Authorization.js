@@ -1,4 +1,4 @@
-import { authorizationError } from "../utils/error.js";
+const { authorizationError } = require("../utils/error.js");
 
 
 const authorization = (roles=["admin"])=>(req, _res, next)=>{
@@ -9,4 +9,4 @@ const authorization = (roles=["admin"])=>(req, _res, next)=>{
     return next(authorizationError())
 };
 
-export default authorization;
+module.exports =authorization;

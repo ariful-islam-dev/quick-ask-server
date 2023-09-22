@@ -1,4 +1,4 @@
-import questionService from "../../../../lib/Question/index.js";
+const questionService = require("../../../../lib/Question/index.js");
 
 const patchUpdateQuestion= async(req, res, next)=>{
 
@@ -20,4 +20,4 @@ const patchUpdateQuestion= async(req, res, next)=>{
    
   }
 
-  export default patchUpdateQuestion;
+module.exports = patchUpdateQuestion;

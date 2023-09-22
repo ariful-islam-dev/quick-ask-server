@@ -1,4 +1,4 @@
-import Answer from "../../model/Answer.js";
+const Answer = require("../../model/Answer.js");
 
 const count = async()=>{
    
@@ -6,4 +6,4 @@ const count = async()=>{
 
 };
 
-export default count;
+module.exports = count;

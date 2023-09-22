@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
 
 const hashing = async(password, saltRound=10)=>{
     const salt = await bcrypt.genSalt(saltRound);
@@ -13,4 +13,4 @@ const matchHashing = async(row, password)=>{
 }
 
 
-export { hashing, matchHashing };
+module.exports= { hashing, matchHashing };

@@ -1,4 +1,4 @@
-import answerService from "../../../../lib/Answer/index.js";
+const answerService = require("../../../../lib/Answer/index.js");
 
 const createAnswer = async(req, res, next) => {
     const questionId =req.params.id || req.body.questionId;
@@ -27,4 +27,4 @@ const createAnswer = async(req, res, next) => {
 
   }
 
-  export default createAnswer
+module.exports = createAnswer

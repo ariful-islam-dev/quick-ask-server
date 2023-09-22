@@ -1,4 +1,4 @@
-import findUserByEmail from "./findUserByEmail.js";
+const findUserByEmail = require("./findUserByEmail.js")
 
 
 const existUser = async(email)=>{
@@ -6,4 +6,4 @@ const existUser = async(email)=>{
   return user ? true: false;
 }
 
-export default existUser;
+module.exports = existUser;

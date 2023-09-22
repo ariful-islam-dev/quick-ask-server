@@ -1,6 +1,6 @@
-import defaultConfig from "../../../../config/default.js";
-import userService from "../../../../lib/User/index.js";
-import { query } from "../../../../utils/index.js";
+const defaultConfig = require("../../../../config/default.js");
+const userService = require("../../../../lib/User/index.js");
+const { query } = require("../../../../utils/index.js");
 
 const findAllUser =  async(req, res)=>{
 
@@ -35,4 +35,4 @@ const findAllUser =  async(req, res)=>{
     
 }
 
-export default findAllUser
+module.exports = findAllUser

@@ -1,6 +1,6 @@
-import findUserByEmail from "../lib/User/findUserByEmail.js";
-import token from "../lib/token/index.js";
-import { authenticationError } from "../utils/error.js";
+const findUserByEmail = require("../lib/User/findUserByEmail.js");
+const token = require("../lib/token/index.js");
+const { authenticationError } = require("../utils/error.js");
 
 const authentication = async (req, _res, next) => {
   const userToken = req.headers.authorization.split(" ")[1];
@@ -26,4 +26,4 @@ const authentication = async (req, _res, next) => {
   }
 };
 
-export default authentication;
+module.exports = authentication;

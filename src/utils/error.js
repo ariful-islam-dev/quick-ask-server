@@ -27,5 +27,5 @@ const authorizationError = (msg="Permission Denied!")=>{
     return error;
 }
 
-export { authenticationError, authorizationError, badRequest, notFound, serverError };
+module.exports = { authenticationError, authorizationError, badRequest, notFound, serverError };
 

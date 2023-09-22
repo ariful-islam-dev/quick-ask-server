@@ -1,7 +1,7 @@
 
 
-import jwt from "jsonwebtoken";
-import { serverError } from "../../utils/error.js";
+const jwt = require("jsonwebtoken");
+const { serverError } = require("../../utils/error.js");
 
 const decodeToken = (token, algorithm="HS256")=>{
     try {
@@ -11,4 +11,4 @@ const decodeToken = (token, algorithm="HS256")=>{
     }
 };
 
-export default decodeToken;
+module.exports = decodeToken;

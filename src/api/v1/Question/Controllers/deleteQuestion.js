@@ -1,4 +1,4 @@
-import questionService from "../../../../lib/Question/index.js";
+const questionService = require("../../../../lib/Question/index.js");
 
 const deleteQuestion = async (req, res, next) => {
   const id = req.params.id;
@@ -14,4 +14,4 @@ const deleteQuestion = async (req, res, next) => {
   }
 };
 
-export default deleteQuestion;
+module.exports = deleteQuestion;

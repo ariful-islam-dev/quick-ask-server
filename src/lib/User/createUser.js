@@ -1,4 +1,4 @@
-import User from "../../model/User.js";
+const User = require("../../model/User.js");
 
 const createUser = async (
   name,
@@ -21,4 +21,4 @@ const createUser = async (
   return { ...user._doc, id: user.id };
 };
 
-export default createUser;
+module.exports = createUser;

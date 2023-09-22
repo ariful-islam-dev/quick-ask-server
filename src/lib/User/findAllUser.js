@@ -1,4 +1,4 @@
-import User from "../../model/User.js";
+const User = require("../../model/User.js");
 
 const findAllUser = async(page, limit, sortBy, sortType, search)=>{
    // sort 
@@ -10,4 +10,4 @@ const findAllUser = async(page, limit, sortBy, sortType, search)=>{
     return users.map(user=>({...user._doc, id: user.id}))
 }
 
-export default findAllUser
+module.exports = findAllUser

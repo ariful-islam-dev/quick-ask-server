@@ -1,5 +1,5 @@
-import login from "./login.js";
-import register from "./register.js";
-const authService = {register,login};
+const login = require("./login.js");
+const register = require("./register.js");
 
-export default authService;
+
+module.exports = {register,login}

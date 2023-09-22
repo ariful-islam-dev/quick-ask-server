@@ -1,4 +1,4 @@
-import questionService from "../../../../lib/Question/index.js";
+const questionService = require("../../../../lib/Question/index.js");
 
 const findSingleQuestion = async(req, res, next)=>{
     // get question id
@@ -25,4 +25,4 @@ const findSingleQuestion = async(req, res, next)=>{
     }
   }
 
-  export default findSingleQuestion;
+  module.exports = findSingleQuestion;
