@@ -296,7 +296,6 @@ paths:
                   example: public
                 avatar:
                   type: string
-                  format: url
                   example: ""
       responses:
         200:

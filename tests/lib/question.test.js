@@ -9,7 +9,7 @@ const qusData = {
 }
 
 const config = require("../../src/config/default")
-describe("question system service function", ()=>{
+describe("question system service function", async()=>{
     it("create a new question", async()=>{
         
         const question = await createQuestion(qusData.title, qusData.description, qusData.image, qusData.status, qusData.author);
@@ -20,4 +20,4 @@ describe("question system service function", ()=>{
         const question = await findAllQuestion(config.page, config.limit, config.sortBy, config.sortType, config.search);
         expect(question.author).toBeTruthy();
     }
-})
+});

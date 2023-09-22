@@ -10,15 +10,15 @@ const payload = {
 }
 describe("POST /auth/register", () => {
     it('should create a new user', async () => {
-        await request(app).post("/api/v1/auth/register", register).send(payload);
-        const response = await request(app).post("/api/v1/auth/login", login).send({ email: payload.email, password: payload.password });
+        await request(app).post("/auth/register", register).send(payload);
+        const response = await request(app).post("/auth/login", login).send({ email: payload.email, password: payload.password });
         expect(response.status).toBe(200);
     });
     
     it("invalide creadential", async()=>{
         const pass = 'asbeosu12233232'
-        await request(app).post("/api/v1/auth/register", register).send(payload);
-        const response = await request(app).post("/api/v1/auth/login", login).send({ email: payload.email, password: "apss1245" });
+        await request(app).post("/auth/register", register).send(payload);
+        const response = await request(app).post("/auth/login", login).send({ email: payload.email, password: "apss1245" });
         expect(response.status).toBe(400);
     })
 })

@@ -11,7 +11,7 @@ const updateUser = async(id, {name, role, status, avatar})=>{
     user.role = role ?? user.role;
     user.status = status ?? user.status;
     user.avatar = avatar ?? user.avatar;
-
+   
     await user.save();
 
     return {...user._doc, id: user.id };

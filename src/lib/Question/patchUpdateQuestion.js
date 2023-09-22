@@ -14,6 +14,7 @@ const patchUpdateQuestion = async(id, {title, description, image, status}, user)
         question.status = status ?? question.status;
     }
 
+ 
     await question.save();
 
     return {...question._doc, id: question.id};

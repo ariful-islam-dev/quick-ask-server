@@ -1,9 +1,7 @@
 const userController = require("../api/v1/User/index.js");
 const authentication = require("../middlewares/Authentication.js");
 const authorization = require("../middlewares/Authorization.js");
-const User = require("../model/User.js");
-const { notFound } = require("../utils/error.js");
-const { hashing } = require("../utils/hashing.js");
+
 
 const userRoute = (router) => {
   router
