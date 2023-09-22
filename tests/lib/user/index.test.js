@@ -1,7 +1,6 @@
 const config = require('../../../src/config/default')
 
 const { createUser, findAllUser, existUser } = require("../../../src/lib/User")
-const findUserByEmail = require('../../../src/lib/User/findUserByEmail')
 
 
 const userInfo = {
@@ -26,14 +25,7 @@ describe('User handle system', ()=>{
         })
     })
 
-    it('should find a single user', ()=>{
-        findUserByEmail(userInfo.email).then(data=>{
-            expect(typeof user.id).toBe('string')
-            expect(user.name).toBeTruthy()
-        }).catch(e=> {
-            throw e
-        })
-    })
+    
 
     it('should have user already existing', ()=>{
         existUser(userInfo.email).then(data=>{

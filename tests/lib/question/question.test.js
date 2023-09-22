@@ -1,4 +1,4 @@
-const { createQuestion, findAllQuestion } = require("../../src/lib/Question")
+
 
 const qusData = {
     title: "Web desing RGB Color problem",
@@ -8,12 +8,14 @@ const qusData = {
     author: "64f761594ce3b0130a5a85d2"
 }
 
-const config = require("../../src/config/default")
+const config = require("../../../src/config/default");
+const { createQuestion, findAllQuestion } = require("../../../src/lib/Question");
 describe("question system service function", async()=>{
     it("create a new question", async()=>{
         
         const question = await createQuestion(qusData.title, qusData.description, qusData.image, qusData.status, qusData.author);
         expect(question.author).toBeTruthy();
+        expect(typeof question.id).toBe("string")
     })
 
     it("Should find all user", async()=>{
